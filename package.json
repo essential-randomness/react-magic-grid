@@ -49,7 +49,7 @@
     "@storybook/storybook-deployer": "2.8.5",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.1.0",
-    "eslint": "6.8.0",
+    "eslint": "7.2.0",
     "eslint-config-i-am-meticulous": "12.0.0",
     "eslint-plugin-react": "7.20.0",
     "magic-grid": "3.2.4",
