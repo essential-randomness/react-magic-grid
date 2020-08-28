@@ -37,7 +37,7 @@ import MagicGrid from "react-magic-grid"
 const ResizableComponent = ({ cards }) => {
   const gridRef = React.useRef()
 
-  // Can use gridRef.current.positionItems() to reposizion.
+  // Can use gridRef.current.positionItems() to reposition.
 
   return (
     <MagicGrid items={cards.length} ref={gridRef}>
