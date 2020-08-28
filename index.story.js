@@ -8,6 +8,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 9]
 
 const Card = ({ item }) => (
   <div
+    className={"card"}
     style={{
       width: `${100 / 4}%`,
       minWidth: 200,
@@ -43,3 +44,34 @@ storiesOf("MagicGrid", module)
       ))}
     </MagicGrid>
   ))
+  .add("reposition", () => {
+    const gridRef = React.useRef()
+
+    return (
+      <div>
+        <div>
+          <input
+            type="button"
+            onClick={() => {
+              document.querySelectorAll(".card").forEach(card => {
+                card.style.height = `${
+                  Math.floor(Math.random() * (300 - 100 + 1)) + 100
+                }px`
+              })
+            }}
+            value="change size"
+          />
+          <input
+            type="button"
+            onClick={() => gridRef.current.positionItems()}
+            value="reposition"
+          />
+        </div>
+        <MagicGrid items={cards.length} gutter={0} ref={gridRef}>
+          {cards.map(item => (
+            <Card key={item} i={item} />
+          ))}
+        </MagicGrid>
+      </div>
+    )
+  })

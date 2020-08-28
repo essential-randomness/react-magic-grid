@@ -1,12 +1,17 @@
-import React, { useEffect, useRef } from "react"
+import React, {
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+} from "react"
 import PropTypes from "prop-types"
 import MagicGrid from "magic-grid"
 
-const MagicGridWrapper = ({ children, ...props }) => {
+const MagicGridWrapper = ({ children, ...props }, ref) => {
   const container = useRef(null)
+  const grid = useRef(null)
 
   useEffect(() => {
-    let grid = null
     let timeout
     // magic-grid handles resizing via its own `listen` method
     // unfortunately event listener it creates is not being cleaned up
@@ -15,22 +20,28 @@ const MagicGridWrapper = ({ children, ...props }) => {
     const resize = () => {
       if (!timeout)
         timeout = setTimeout(() => {
-          grid && grid.positionItems()
+          grid.current && grid.current.positionItems()
           timeout = null
         }, 200)
     }
 
-    if (!grid) {
-      grid = new MagicGrid({ container: container.current, ...props })
+    if (!grid.current) {
+      grid.current = new MagicGrid({ container: container.current, ...props })
       window.addEventListener("resize", resize)
     }
 
-    grid.positionItems()
+    grid.current.positionItems()
 
     return () => {
       window.removeEventListener("resize", resize)
     }
   })
+
+  useImperativeHandle(ref, () => ({
+    positionItems: () => {
+      grid.current && grid.current.positionItems()
+    },
+  }))
 
   return <div ref={container}>{children}</div>
 }
@@ -39,4 +50,4 @@ MagicGridWrapper.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node),
 }
 
-export default MagicGridWrapper
+export default forwardRef(MagicGridWrapper)

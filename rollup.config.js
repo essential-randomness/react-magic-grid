@@ -26,7 +26,12 @@ export default [
       commonjs({
         include: "node_modules/**",
         namedExports: {
-          "node_modules/react/index.js": ["useRef", "useEffect"],
+          "node_modules/react/index.js": [
+            "useRef",
+            "useEffect",
+            "useImperativeHandle",
+            "forwardRef",
+          ],
         },
       }),
     ],

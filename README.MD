@@ -26,3 +26,23 @@ const Cards = ({ cards }) => (
 ### Props
 
 Supports all options in [Magic-Grid's config](https://github.com/e-oj/Magic-Grid#magicgridconfig).
+
+### Repositioning
+
+Supports imperative repositioning through ref forwarding.
+
+```jsx
+import MagicGrid from "react-magic-grid"
+
+const ResizableComponent = ({ cards }) => {
+  const gridRef = React.useRef()
+
+  // Can use gridRef.current.positionItems() to reposizion.
+
+  return (
+    <MagicGrid items={cards.length} ref={gridRef}>
+      {/* card rendering code */}
+    </MagicGrid>
+  )
+}
+```
