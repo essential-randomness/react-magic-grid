@@ -1,15 +1,16 @@
 import React, {
   useEffect,
   useRef,
+  createRef,
   useImperativeHandle,
   forwardRef,
 } from "react"
 import PropTypes from "prop-types"
 import MagicGrid from "magic-grid"
 
-const MagicGridWrapper = ({ children, ...props }, ref) => {
+const MagicGridWrapper = forwardRef(({ children, ...props }, ref) => {
   const container = useRef(null)
-  const grid = useRef(null)
+  const grid = createRef()
 
   useEffect(() => {
     let timeout
@@ -44,10 +45,10 @@ const MagicGridWrapper = ({ children, ...props }, ref) => {
   }))
 
   return <div ref={container}>{children}</div>
-}
+})
 
 MagicGridWrapper.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node),
 }
 
-export default forwardRef(MagicGridWrapper)
+export default MagicGridWrapper
